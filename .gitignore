@@ -19,9 +19,6 @@
 # Mono auto generated files
 mono_crash.*
 
-#databases
-GeologicalResearch/*.db
-
 # Build results
 GeologicalResearch/[Dd]ebug/
 GeologicalResearch/[Dd]ebugPublic/
