@@ -19,21 +19,24 @@
 # Mono auto generated files
 mono_crash.*
 
+#databases
+GeologicalResearch/*.db
+
 # Build results
-[Dd]ebug/
-[Dd]ebugPublic/
-[Rr]elease/
-[Rr]eleases/
-x64/
-x86/
-[Ww][Ii][Nn]32/
-[Aa][Rr][Mm]/
-[Aa][Rr][Mm]64/
-bld/
-[Bb]in/
-[Oo]bj/
-[Ll]og/
-[Ll]ogs/
+GeologicalResearch/[Dd]ebug/
+GeologicalResearch/[Dd]ebugPublic/
+GeologicalResearch/[Rr]elease/
+GeologicalResearch/[Rr]eleases/
+GeologicalResearch/x64/
+GeologicalResearch/x86/
+GeologicalResearch/[Ww][Ii][Nn]32/
+GeologicalResearch/[Aa][Rr][Mm]/
+GeologicalResearch/[Aa][Rr][Mm]64/
+GeologicalResearch/bld/
+GeologicalResearch/[Bb]in/
+GeologicalResearch/[Oo]bj/
+GeologicalResearch/[Ll]og/
+GeologicalResearch/[Ll]ogs/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
