@@ -12,6 +12,9 @@ namespace GeologicalResearch.Controllers
     [ApiController]
     public class ReportsController(GRDataContext dbContext) : ControllerBase
     {
+
+        //Метод который вызывает GET запрос. Создает отчет за указанный месяц. 
+        // Включает количество выполненных заявок + выполненные заявки + количество времени в часах потраченное на выполнение заявки (от момента создания до закрытия заявки).
         [HttpGet("monthly")]
         public async Task<ActionResult<List<BrigadeReportDto>>> Get(int year, int  month)
         {

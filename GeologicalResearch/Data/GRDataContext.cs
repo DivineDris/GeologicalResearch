@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace GeologicalResearch.Data;
 
 public class GRDataContext(DbContextOptions<GRDataContext> options) 
-: DbContext(options) 
+: DbContext(options) //контекст бд для ef
 {
     public DbSet<Request> Requests => Set<Request>();
     public DbSet<Brigade> Brigades => Set<Brigade>();

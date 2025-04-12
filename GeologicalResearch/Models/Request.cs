@@ -2,7 +2,7 @@ using System;
 
 namespace GeologicalResearch.Models;
 
-public class Request
+public class Request //Модель заявки
 {
     public int Id { get; set; }
     public required string RequestDescription { get; set;}
