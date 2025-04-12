@@ -14,12 +14,8 @@ namespace GeologicalResearch.Controllers
     public class RequestsController (GRDataContext dbContext) : ControllerBase
     {
         [HttpPost("new")]
-        public ActionResult<Request> Post(CreateRequestDto createRequestDto)
+        public ActionResult<Request> PostNewRequest(CreateRequestDto createRequestDto)
         {
-            if(string.IsNullOrEmpty(createRequestDto.RequestDescription) || 
-            (createRequestDto.BrigadeId < 1 || createRequestDto.BrigadeId > dbContext.Brigades.Count()))
-                    throw new ValidationException("Ошибка валидации передаваемых данных", "Invalid values");
-
             Request request = createRequestDto.ToEntity();
             dbContext.Requests.Add(request);
             dbContext.SaveChanges();
@@ -27,7 +23,7 @@ namespace GeologicalResearch.Controllers
         }
 
         [HttpGet]
-        public ActionResult<Request> Get()
+        public ActionResult<Request> GetAllRequests()
         {
             var requests = dbContext.Requests
             .Include(request=>request.Brigade)
@@ -39,14 +35,30 @@ namespace GeologicalResearch.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Request> Get(int id)
+        public ActionResult<Request> GetRequestById(int id)
         {
             Request? request = dbContext.Requests.Find(id);
             return request is null ? throw new NotFoundException ($"Заявка с id:{id} не найдена", "Request not found") : Ok(request.ToRequestDetailsDto());
         }
 
+        [HttpPut("{id}/assignBrigade")]
+        public ActionResult<Request> PutAssignBrigadeForRequest(int id, AssignBrigadeDto assignBrigadeDto)
+        {
+            if(assignBrigadeDto.BrigadeId < 1 || assignBrigadeDto.BrigadeId > dbContext.Brigades.Count())
+                throw new ValidationException("Ошибка валидации передаваемых данных", "Invalid values");
+
+             var existingRequest = dbContext.Requests.Find(id);
+             if(existingRequest is null)
+                throw new NotFoundException ($"Заявка с id:{id} не найдена", "Request not found");
+            
+            dbContext.Entry(existingRequest)
+                        .CurrentValues
+                        .SetValues(assignBrigadeDto.ToEntity(existingRequest));
+            dbContext.SaveChanges();
+            return NoContent();
+        }
         [HttpPut("update/{id}")]
-        public ActionResult<Request> Put(int id, UpdateRequestDto updateRequestDto)
+        public ActionResult<Request> PutUpdateRequestById(int id, UpdateRequestDto updateRequestDto)
         {
             if((updateRequestDto.BrigadeId < 1 || updateRequestDto.BrigadeId > dbContext.Brigades.Count()) ||
             (updateRequestDto.StatusId < 1 || updateRequestDto.StatusId > 3) ||
@@ -58,13 +70,12 @@ namespace GeologicalResearch.Controllers
                 throw new NotFoundException ($"Заявка с id:{id} не найдена", "Request not found");
             dbContext.Entry(existingRequest)
                         .CurrentValues
-                        .SetValues(updateRequestDto.ToEntity(id));
+                        .SetValues(updateRequestDto.ToEntity(existingRequest));
             dbContext.SaveChanges();
             return NoContent();
         }
-
         [HttpPut("close/{id}")]
-        public ActionResult<Request> Put(int id, CloseRequestDto closeRequestDto)
+        public ActionResult<Request> PutCloseRequestById(int id, CloseRequestDto closeRequestDto)
         {
             var existingRequest = dbContext.Requests.Find(id);
             if (existingRequest is null)
@@ -73,13 +84,13 @@ namespace GeologicalResearch.Controllers
                 throw new ValidationException("Дата открытия заявки больше даты закрытия заявки", "Start date > Finish date");
             dbContext.Entry(existingRequest)
                         .CurrentValues
-                        .SetValues(closeRequestDto.ToEntity(id,existingRequest));
+                        .SetValues(closeRequestDto.ToEntity(existingRequest));
             dbContext.SaveChanges();
             return NoContent();
         }
 
         [HttpDelete("delete/{id}")]
-        public ActionResult<Request> Delete(int id)
+        public ActionResult<Request> DeleteRequestById(int id)
         {
             if(dbContext.Requests.Find(id) is null)
                 throw new NotFoundException ($"Заявка с id:{id} не найдена", "Request not found");

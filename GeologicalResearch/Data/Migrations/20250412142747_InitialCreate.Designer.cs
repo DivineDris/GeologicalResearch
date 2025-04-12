@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GeologicalResearch.Data.Migrations
 {
     [DbContext(typeof(GRDataContext))]
-    [Migration("20250411174344_InitialCreate")]
+    [Migration("20250412142747_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -58,7 +58,7 @@ namespace GeologicalResearch.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("BrigadeId")
+                    b.Property<int?>("BrigadeId")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime?>("FinishDate")
@@ -122,9 +122,7 @@ namespace GeologicalResearch.Data.Migrations
                 {
                     b.HasOne("GeologicalResearch.Models.Brigade", "Brigade")
                         .WithMany()
-                        .HasForeignKey("BrigadeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BrigadeId");
 
                     b.HasOne("GeologicalResearch.Models.Status", "Status")
                         .WithMany()

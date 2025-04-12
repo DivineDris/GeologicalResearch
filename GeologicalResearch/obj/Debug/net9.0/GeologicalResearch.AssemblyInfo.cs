@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GeologicalResearch")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+153171b7c61d4173a6affa7708dac062ff09c272")]
 [assembly: System.Reflection.AssemblyProductAttribute("GeologicalResearch")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GeologicalResearch")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -157,3 +157,4 @@ C:\Repos\GeologicalResearch\GeologicalResearch\obj\Debug\net9.0\Geologic.76DE70E
 C:\Repos\GeologicalResearch\GeologicalResearch\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Repos\GeologicalResearch\GeologicalResearch\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Repos\GeologicalResearch\GeologicalResearch\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Repos\GeologicalResearch\GeologicalResearch\obj\Debug\net9.0\GeologicalResearch.sourcelink.json

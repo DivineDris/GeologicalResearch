@@ -5,7 +5,7 @@ namespace GeologicalResearch.Dto;
 public record class RequestDetailsDto(
     [Required]int Id,
     [Required]string RequestDescription,
-    [Required]int BrigadeId,
+    int? BrigadeId,
     [Required]int StatusId,
     [Required] DateTime StartDate,
     DateTime? FinishDate,

@@ -47,7 +47,7 @@ namespace GeologicalResearch.Data.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     RequestDescription = table.Column<string>(type: "TEXT", nullable: false),
                     StatusId = table.Column<int>(type: "INTEGER", nullable: false),
-                    BrigadeId = table.Column<int>(type: "INTEGER", nullable: false),
+                    BrigadeId = table.Column<int>(type: "INTEGER", nullable: true),
                     StartDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     FinishDate = table.Column<DateTime>(type: "TEXT", nullable: true),
                     RequestNote = table.Column<string>(type: "TEXT", nullable: true)
@@ -59,8 +59,7 @@ namespace GeologicalResearch.Data.Migrations
                         name: "FK_Requests_Brigades_BrigadeId",
                         column: x => x.BrigadeId,
                         principalTable: "Brigades",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Requests_Statuses_StatusId",
                         column: x => x.StatusId,
