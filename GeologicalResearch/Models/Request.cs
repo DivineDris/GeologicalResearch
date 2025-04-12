@@ -6,6 +6,7 @@ public class Request
 {
     public int Id { get; set; }
     public required string RequestDescription { get; set;}
+    public required string Client { get; set; }
     public int StatusId { get; set; }
     public Status? Status{ get; set; }
     public int? BrigadeId{ get; set; }

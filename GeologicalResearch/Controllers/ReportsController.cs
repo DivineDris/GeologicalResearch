@@ -15,13 +15,13 @@ namespace GeologicalResearch.Controllers
         [HttpGet("monthly")]
         public async Task<ActionResult<List<BrigadeReportDto>>> Get(int year, int  month)
         {
-            var reportPeriod = new DateTime(year, month, 1);
             var requests = await dbContext.Requests
             .Include(request=>request.Brigade)
             .Include(request=>request.Status)
             .Where(request=>request.StatusId == 3
                 && request.FinishDate != null
-                && request.FinishDate >= reportPeriod).ToListAsync();
+                && request.FinishDate.Value.Year == year
+                && request.FinishDate.Value.Month == month).ToListAsync();
             if(requests.Count == 0)
                throw new NotFoundException("Невозможно составить отчет. Нет заявок за данный период", "Report error. Requests not found");
             var groupedRequests = requests.GroupBy(request => request.Brigade)

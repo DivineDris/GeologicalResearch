@@ -3,8 +3,9 @@ using System.ComponentModel.DataAnnotations;
 namespace GeologicalResearch.Dto;
 
 public record class RequestSummaryDto(
-    [Required]int Id,
-    [Required]string RequestDescription,
+    int Id,
+    string RequestDescription,
+    string Client,
     string? BrigadeName,
     string StatusName,
     DateTime StartDate,

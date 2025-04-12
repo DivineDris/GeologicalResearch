@@ -11,6 +11,7 @@ public static class RequestMapping
             return new Request()
             {
                 RequestDescription = createRequestDto.RequestDescription,
+                Client = createRequestDto.Client,
                 StatusId = 1,
                 BrigadeId = null,
                 StartDate = DateTime.Now,
@@ -23,6 +24,8 @@ public static class RequestMapping
     {
         if(!string.IsNullOrEmpty(updateRequestDto.RequestDescription)) 
             request.RequestDescription = updateRequestDto.RequestDescription;
+        if(!string.IsNullOrEmpty(updateRequestDto.Client)) 
+            request.Client = updateRequestDto.Client;
         if(updateRequestDto.BrigadeId != null && updateRequestDto.BrigadeId != 0)
             request.BrigadeId = updateRequestDto.BrigadeId;
         if(updateRequestDto.StatusId != null && updateRequestDto.StatusId != 0)
@@ -44,7 +47,7 @@ public static class RequestMapping
         return request;
     }
 
-            public static Request ToEntity(this AssignBrigadeDto assignBrigadeDto, Request request)
+    public static Request ToEntity(this AssignBrigadeDto assignBrigadeDto, Request request)
     {
         request.BrigadeId = assignBrigadeDto.BrigadeId;
         return request;
@@ -56,6 +59,7 @@ public static class RequestMapping
         (
             request.Id,
             request.RequestDescription,
+            request.Client,
             request.BrigadeId,
             request.StatusId,
             request.StartDate,
@@ -73,6 +77,7 @@ public static class RequestMapping
         (
             request.Id,
             request.RequestDescription,
+            request.Client,
             BrigadeName,
             request.Status!.StatusName,
             request.StartDate,

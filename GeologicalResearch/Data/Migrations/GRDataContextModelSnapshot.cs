@@ -58,6 +58,10 @@ namespace GeologicalResearch.Data.Migrations
                     b.Property<int?>("BrigadeId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Client")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime?>("FinishDate")
                         .HasColumnType("TEXT");
 

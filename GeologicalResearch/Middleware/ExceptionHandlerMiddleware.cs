@@ -5,7 +5,7 @@ using GeologicalResearch.Dto;
 using GeologicalResearch.Exceptions;
 
 namespace GeologicalResearch.Middleware;
-
+//middleware для отлова ошибок
 public class ExceptionHandlerMiddleware
 {
     private readonly RequestDelegate _next;
@@ -44,7 +44,7 @@ public class ExceptionHandlerMiddleware
         _logger.LogError(exMessage);
         HttpResponse response = context.Response;
         response.ContentType = "application/json";
-        response.StatusCode = (int) httpStatusCode;
+        response.StatusCode = (int)httpStatusCode;
         ErrorDto errorDto = new
         (
             (int)httpStatusCode,

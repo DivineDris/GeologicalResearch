@@ -3,11 +3,12 @@ using System.ComponentModel.DataAnnotations;
 namespace GeologicalResearch.Dto;
 
 public record class RequestDetailsDto(
-    [Required]int Id,
-    [Required]string RequestDescription,
+    int Id,
+    string RequestDescription,
+    string Client,
     int? BrigadeId,
-    [Required]int StatusId,
-    [Required] DateTime StartDate,
+    int StatusId,
+    DateTime StartDate,
     DateTime? FinishDate,
     string? RequestNote
 );
