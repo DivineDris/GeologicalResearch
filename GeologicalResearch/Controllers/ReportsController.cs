@@ -13,17 +13,17 @@ namespace GeologicalResearch.Controllers
     public class ReportsController(GRDataContext dbContext) : ControllerBase
     {
         [HttpGet("monthly")]
-        public ActionResult<List<BrigadeReportDto>> Get(int year, int  month)
+        public async Task<ActionResult<List<BrigadeReportDto>>> Get(int year, int  month)
         {
-            var requests = dbContext.Requests
+            var reportPeriod = new DateTime(year, month, 1);
+            var requests = await dbContext.Requests
             .Include(request=>request.Brigade)
             .Include(request=>request.Status)
             .Where(request=>request.StatusId == 3
                 && request.FinishDate != null
-                && request.FinishDate.Value.Month == month
-                && request.FinishDate.Value.Year == year).ToList();
+                && request.FinishDate >= reportPeriod).ToListAsync();
             if(requests.Count == 0)
-               throw new NotFoundException("Не возможно составить отчет. Нет заявок за данный период", "Report error. Requests not found");
+               throw new NotFoundException("Невозможно составить отчет. Нет заявок за данный период", "Report error. Requests not found");
             var groupedRequests = requests.GroupBy(request => request.Brigade)
             .Select(groupedRequest => new BrigadeReportDto
             (
