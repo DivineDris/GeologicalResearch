@@ -20,5 +20,5 @@ if (app.Environment.IsDevelopment())
 
 app.UseMiddleware<ExceptionHandlerMiddleware>();
 app.MapControllers();
-app.MigrateDb();
+await app.MigrateDbAsync();
 app.Run();

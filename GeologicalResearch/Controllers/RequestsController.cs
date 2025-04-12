@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using GeologicalResearch.Data;
 using GeologicalResearch.Dto;
 using GeologicalResearch.Exceptions;
@@ -14,70 +15,70 @@ namespace GeologicalResearch.Controllers
     public class RequestsController (GRDataContext dbContext) : ControllerBase
     {
         [HttpPost("new")]
-        public ActionResult<Request> PostNewRequest(CreateRequestDto createRequestDto)
+        public async Task<ActionResult<Request>> PostNewRequest(CreateRequestDto createRequestDto)
         {
             Request request = createRequestDto.ToEntity();
-            dbContext.Requests.Add(request);
-            dbContext.SaveChanges();
+            await dbContext.Requests.AddAsync(request);
+            await dbContext.SaveChangesAsync();
             return Ok(request.ToRequestDetailsDto());
         }
 
         [HttpGet]
-        public ActionResult<Request> GetAllRequests()
+        public async Task<ActionResult<Request>> GetAllRequests()
         {
-            var requests = dbContext.Requests
+            var requests = await dbContext.Requests
             .Include(request=>request.Brigade)
             .Include(request=>request.Status)
             .Select(request => request.ToRequestSummaryDto())
-            .AsNoTracking().ToList();
+            .AsNoTracking().ToListAsync();
 
             return requests.Count() == 0 ? throw new NotFoundException("Заявки не найдены",  "Requests not found") : Ok(requests);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Request> GetRequestById(int id)
+        public async Task<ActionResult<Request>> GetRequestById(int id)
         {
-            Request? request = dbContext.Requests.Find(id);
+            Request? request = await dbContext.Requests.FindAsync(id);
             return request is null ? throw new NotFoundException ($"Заявка с id:{id} не найдена", "Request not found") : Ok(request.ToRequestDetailsDto());
         }
 
         [HttpPut("{id}/assignBrigade")]
-        public ActionResult<Request> PutAssignBrigadeForRequest(int id, AssignBrigadeDto assignBrigadeDto)
+        public async Task<ActionResult<Request>> PutAssignBrigadeForRequest(int id, AssignBrigadeDto assignBrigadeDto)
         {
-            if(assignBrigadeDto.BrigadeId < 1 || assignBrigadeDto.BrigadeId > dbContext.Brigades.Count())
+            if(assignBrigadeDto.BrigadeId < 1 || assignBrigadeDto.BrigadeId > 3)
                 throw new ValidationException("Ошибка валидации передаваемых данных", "Invalid values");
 
-             var existingRequest = dbContext.Requests.Find(id);
+             var existingRequest = await dbContext.Requests.FindAsync(id);
              if(existingRequest is null)
                 throw new NotFoundException ($"Заявка с id:{id} не найдена", "Request not found");
             
             dbContext.Entry(existingRequest)
                         .CurrentValues
                         .SetValues(assignBrigadeDto.ToEntity(existingRequest));
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
             return NoContent();
         }
-        [HttpPut("update/{id}")]
-        public ActionResult<Request> PutUpdateRequestById(int id, UpdateRequestDto updateRequestDto)
+        [HttpPut("{id}/update")]
+        public async Task<ActionResult<Request>> PutUpdateRequestById(int id, UpdateRequestDto updateRequestDto)
         {
-            if((updateRequestDto.BrigadeId < 1 || updateRequestDto.BrigadeId > dbContext.Brigades.Count()) ||
-            (updateRequestDto.StatusId < 1 || updateRequestDto.StatusId > 3) ||
+            if(updateRequestDto.BrigadeId > 3 ||
+            updateRequestDto.StatusId > 3 ||
             updateRequestDto.StartDate > updateRequestDto.FinishDate)
                 throw new ValidationException("Ошибка валидации передаваемых данных", "Invalid values");
-            var existingRequest = dbContext.Requests.Find(id);
+            var existingRequest = await dbContext.Requests.FindAsync(id);
             
             if(existingRequest is null)
                 throw new NotFoundException ($"Заявка с id:{id} не найдена", "Request not found");
             dbContext.Entry(existingRequest)
                         .CurrentValues
                         .SetValues(updateRequestDto.ToEntity(existingRequest));
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
             return NoContent();
         }
-        [HttpPut("close/{id}")]
-        public ActionResult<Request> PutCloseRequestById(int id, CloseRequestDto closeRequestDto)
+        [HttpPut("{id}/close")]
+        public async Task<ActionResult<Request>> PutCloseRequestById(int id, CloseRequestDto closeRequestDto)
         {
-            var existingRequest = dbContext.Requests.Find(id);
+            var existingRequest = await dbContext.Requests.FindAsync(id);
             if (existingRequest is null)
                 throw new NotFoundException ($"Заявка с id:{id} не найдена", "Request not found");
             if(existingRequest.StartDate > DateTime.Now)
@@ -85,17 +86,17 @@ namespace GeologicalResearch.Controllers
             dbContext.Entry(existingRequest)
                         .CurrentValues
                         .SetValues(closeRequestDto.ToEntity(existingRequest));
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
             return NoContent();
         }
 
-        [HttpDelete("delete/{id}")]
-        public ActionResult<Request> DeleteRequestById(int id)
+        [HttpDelete("{id}/delete")]
+        public async Task<ActionResult<Request>> DeleteRequestById(int id)
         {
-            if(dbContext.Requests.Find(id) is null)
+            if(await dbContext.Requests.FindAsync(id) is null)
                 throw new NotFoundException ($"Заявка с id:{id} не найдена", "Request not found");
 
-            dbContext.Requests.Where(request => request.Id == id).ExecuteDelete();
+            await dbContext.Requests.Where(request => request.Id == id).ExecuteDeleteAsync();
             return NoContent();
         }
 

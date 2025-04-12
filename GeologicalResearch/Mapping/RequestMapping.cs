@@ -21,17 +21,16 @@ public static class RequestMapping
 
     public static Request ToEntity(this UpdateRequestDto updateRequestDto, Request request)
     {
-        if(updateRequestDto.RequestDescription != null)
+        if(!string.IsNullOrEmpty(updateRequestDto.RequestDescription)) 
             request.RequestDescription = updateRequestDto.RequestDescription;
-        if(updateRequestDto.BrigadeId != null)
+        if(updateRequestDto.BrigadeId != null && updateRequestDto.BrigadeId != 0)
             request.BrigadeId = updateRequestDto.BrigadeId;
-        if(updateRequestDto.StatusId != null)
+        if(updateRequestDto.StatusId != null && updateRequestDto.StatusId != 0)
             request.StatusId = (int)updateRequestDto.StatusId;
         if(updateRequestDto.StartDate != null)
             request.StartDate = (DateTime)updateRequestDto.StartDate;
         if(updateRequestDto.FinishDate != null)
             request.FinishDate = updateRequestDto.FinishDate;
-        if(updateRequestDto.RequestNote != null)
             request.RequestNote = updateRequestDto.RequestNote;
         
         return request;
