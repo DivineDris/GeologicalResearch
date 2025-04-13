@@ -25,21 +25,21 @@ public class ExceptionHandlerMiddleware
         }
         catch (GeologicalResearchAppException ex)
         {
-            await HandleExeptionAsync(context,
+            await HandleExсeptionAsync(context,
                                     ex.Message,
                                     ex.HttpStatusCode,
                                     ex.UserMessage);
         }
         catch (Exception ex)
         {
-            await HandleExeptionAsync(context, 
+            await HandleExсeptionAsync(context, 
                                     ex.Message, 
                                     HttpStatusCode.InternalServerError,
                                     "Internal server error");
         }
     }
 
-    private async Task HandleExeptionAsync(HttpContext context, string exMessage, HttpStatusCode httpStatusCode, string message)
+    private async Task HandleExсeptionAsync(HttpContext context, string exMessage, HttpStatusCode httpStatusCode, string message)
     {
         _logger.LogError(exMessage);
         HttpResponse response = context.Response;
