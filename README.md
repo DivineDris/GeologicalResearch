@@ -37,11 +37,11 @@
 <pre> ```json {
     "requestDescription": "string",
     "client": "string"
-} </pre>
+} ```</pre>
 - AssignBrigadeDto - Для назначения бригады на заявку
 <pre> ```json {
     "brigadeId": 0
-} </pre>
+} ```</pre>
 - RequestDetailsDto - Более техническое представление, которое возвращает свойства заявки. Возвращаются внешние ключи для статуса и бригады.
 <pre> ```json {
     "id": 1,
@@ -52,7 +52,7 @@
     "startDate": "2025-04-01T20:36:34.128",
     "finishDate": "2025-04-02T20:36:34.128",
     "requestNote": null
-} </pre>
+} ```</pre>
 - RequestSummaryDto - Возвращает свойства заявок. Для вывода в UI например.
 <pre> ```json {
     "id": 2,
@@ -63,7 +63,7 @@
     "startDate": "2025-03-20T20:36:34.128",
     "finishDate": "2025-03-25T20:36:34.128",
     "requestNote": "Требуется проведение доп. работ"
-} </pre>
+} ```</pre>
 - UpdateRequestDto - Для передачи обновленных данных. Например если секретарь ошибся и ему нужно исправить некоторые данные в заявке.
 <pre> ```json {
     "requestDescription": "string",
@@ -73,11 +73,11 @@
     "startDate": "2025-04-13T00:15:24.092Z",
     "finishDate": "2025-04-13T00:15:24.092Z",
     "requestNote": "string"
-} </pre>
+} ```</pre>
 - CloseRequestDto - Для закрытия заявки (отметке о выполнении). Передает только заметки по заявке
 <pre> ```json {
   "requestNote": "string"
-} </pre>
+} ```</pre>
 - BrigadeReportDto и RequestReportDto - нужны для передачи отчетных данных. BrigadeReportDto - отчетные данные по бригаде содержит список RequestReportDto в котором находятся отчетные данные по каждой заявке
   <pre> ```json {
     "brigadeId": 0,
@@ -90,7 +90,7 @@
       }
     ],
     "amountOfFinishedRequests": 0
-} </pre>
+} ```</pre>
 ### Основной функционал
 #### Создание заявок
 Заявки создаются с помощью метода PostNewRequest. Через запрос в параметр метода передается CreateRequestDto. В теле метода полученные данные из CreateRequestDto конвертируются в сущность Request c помощью метода .ToEntity() из кастомного расширения MappingRequest. Дата и время открытия заявки (StartDate) ставится автоматически на момент выполнения запроса.
