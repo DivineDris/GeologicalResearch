@@ -1,7 +1,7 @@
 using System.Text.Json;
 
 namespace GeologicalResearch.Dto;
-//Dto для передачи данных об ошибке
+//DTO for transferring error data
 public record class ErrorDto(
     int StatusCode,
     string Message

@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace GeologicalResearch.Dto;
-//DTO для передачи данных в assignBrigade запрос
+//DTO for data transfer in assignBrigade request
 public record class AssignBrigadeDto (
     [Required]int BrigadeId
 );

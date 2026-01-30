@@ -5,7 +5,7 @@ using GeologicalResearch.Dto;
 using GeologicalResearch.Exceptions;
 
 namespace GeologicalResearch.Middleware;
-//middleware для отлова ошибок
+//middleware for error handling
 public class ExceptionHandlerMiddleware
 {
     private readonly RequestDelegate _next;

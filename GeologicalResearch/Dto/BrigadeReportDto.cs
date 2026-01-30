@@ -1,5 +1,5 @@
 namespace GeologicalResearch.Dto;
-//Dto который передает данные отчета по бригаде
+//DTO that transmits the report data on the brigade
 public record class BrigadeReportDto(
     int BrigadeId,
     string BrigadeName,

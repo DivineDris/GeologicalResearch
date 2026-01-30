@@ -74,9 +74,9 @@ namespace GeologicalResearch.Data.Migrations
                 columns: new[] { "Id", "BrigadeName" },
                 values: new object[,]
                 {
-                    { 1, "Бригада №1" },
-                    { 2, "Бригада №2" },
-                    { 3, "Бригада №3" }
+                    { 1, "Brigade #1" },
+                    { 2, "Brigade #2" },
+                    { 3, "Brigade #3" }
                 });
 
             migrationBuilder.InsertData(
@@ -84,9 +84,9 @@ namespace GeologicalResearch.Data.Migrations
                 columns: new[] { "Id", "StatusName" },
                 values: new object[,]
                 {
-                    { 1, "Заявка открыта" },
-                    { 2, "Заявка в работе" },
-                    { 3, "Заявка закрыта" }
+                    { 1, "Request opened" },
+                    { 2, "Request in progress" },
+                    { 3, "Request closed" }
                 });
 
             migrationBuilder.CreateIndex(

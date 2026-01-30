@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GeologicalResearch.Data.Migrations
 {
     [DbContext(typeof(GRDataContext))]
-    [Migration("20250412202228_InitialCreate")]
+    [Migration("20260130232537_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -38,17 +38,17 @@ namespace GeologicalResearch.Data.Migrations
                         new
                         {
                             Id = 1,
-                            BrigadeName = "Бригада №1"
+                            BrigadeName = "Brigade #1"
                         },
                         new
                         {
                             Id = 2,
-                            BrigadeName = "Бригада №2"
+                            BrigadeName = "Brigade #2"
                         },
                         new
                         {
                             Id = 3,
-                            BrigadeName = "Бригада №3"
+                            BrigadeName = "Brigade #3"
                         });
                 });
 
@@ -108,17 +108,17 @@ namespace GeologicalResearch.Data.Migrations
                         new
                         {
                             Id = 1,
-                            StatusName = "Заявка открыта"
+                            StatusName = "Request opened"
                         },
                         new
                         {
                             Id = 2,
-                            StatusName = "Заявка в работе"
+                            StatusName = "Request in progress"
                         },
                         new
                         {
                             Id = 3,
-                            StatusName = "Заявка закрыта"
+                            StatusName = "Request closed"
                         });
                 });
 

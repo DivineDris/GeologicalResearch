@@ -13,8 +13,8 @@ namespace GeologicalResearch.Controllers
     public class ReportsController(GRDataContext dbContext) : ControllerBase
     {
 
-        //Метод который вызывает GET запрос. Создает отчет за указанный месяц. 
-        // Включает количество выполненных заявок + выполненные заявки + количество времени в часах потраченное на выполнение заявки (от момента создания до закрытия заявки).
+        //A function that triggers a GET request. Creates a report for the specified month.  
+        //Includes the number of completed requests + completed requests + the amount of time in hours spent on completing the request (from the moment of creation to the closing of the request).
         [HttpGet("monthly")]
         public async Task<ActionResult<List<BrigadeReportDto>>> GetReport(int year, int  month)
         {
@@ -26,7 +26,7 @@ namespace GeologicalResearch.Controllers
                 && request.FinishDate.Value.Year == year
                 && request.FinishDate.Value.Month == month).ToListAsync();
             if(requests.Count == 0)
-               throw new NotFoundException("Невозможно составить отчет. Нет заявок за данный период", "Report error. Requests not found");
+               throw new NotFoundException("Unable to generate report. No requests for this period", "Report error. Requests not found");
             var groupedRequests = requests.GroupBy(request => request.Brigade)
             .Select(groupedRequest => new BrigadeReportDto
             (

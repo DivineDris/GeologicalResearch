@@ -2,7 +2,7 @@ using System;
 using System.Net;
 
 namespace GeologicalResearch.Exceptions;
-//Базовый класс кастомного исключения
+//Base class of custom exception
 public abstract class GeologicalResearchAppException : Exception
 {
     public HttpStatusCode HttpStatusCode { get; }
